@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon API Router</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mon assistant IA</h1>
+
+        <form action="/interface/question" method="post">
+
+            <label for="modele">Choisir un modèle :</label>
+            <select name="modele" id="modele">
+
+                {% for modele in modeles %}
+                    <option
+                        value="{{ modele.id }}"
+                        {% if modele.id == modele_selectionne %}selected{% endif %}
+                    >
+                        {{ modele.nom }}
+                    </option>
+                {% endfor %}
+
+            </select>
+            <label for="question">Votre question :</label>
+            <textarea
+                name="question"
+                id="question"
+                placeholder="Écrivez votre question..."
+                required
+            ></textarea>
+
+            <button type="submit">Envoyer</button>
+
+        </form>
+
+        {% if reponse %}
+            <div class="resultat">
+                <div class="resultat-header">
+                    <h3>Réponse de l'IA</h3>
+                </div>
+
+                <div class="resultat-contenu">
+                    {{ reponse }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
